@@ -7,20 +7,12 @@
       app
     >
       <v-list dense>
-        <v-list-tile @click="">
+        <v-list-tile v-for="link in links" :key="link.text" router :to="link.route">
           <v-list-tile-action>
-            <v-icon>person</v-icon>
+            <v-icon >{{ link.icon }}</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>My Wallet</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile @click="">
-          <v-list-tile-action>
-            <v-icon>settings</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>Settings</v-list-tile-title>
+            <v-list-tile>{{ link.text }}</v-list-tile>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -34,10 +26,14 @@
 
 <script>
   export default {
-    data: () => ({
-      drawer: false
-    }),
-    props: {
-    }
+    data() {
+      return{
+         drawer: false,
+         links: [
+          { icon: 'home', text: 'Home', route: '/'},
+          { icon: 'person', text: 'My Wallet', route: '/wallet'},
+       ]
+      }
+    }  
   }
 </script>

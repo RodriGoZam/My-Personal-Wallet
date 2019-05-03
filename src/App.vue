@@ -1,11 +1,11 @@
 <template>
   <v-app id="inspire" dark>
+    <NavDrawer />
     <v-content>
-      <NavDrawer/>
+      <router-link> </router-link>
     </v-content>
   </v-app>
 </template>
-
 
 
 <script>
@@ -18,7 +18,7 @@ export default {
   },
   data () {
     return {
-      //
+
     }
   }
 }

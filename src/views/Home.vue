@@ -1,15 +1,10 @@
 <template>
   <div class="home">
-    <NavDrawer />
+    <h1>WELCOME</h1>
   </div>
 </template>
 
 <script>
-  import NavDrawer from '../components/NavDrawer'
-
   export default {
-    components: {
-      NavDrawer
-    }
   }
 </script>
