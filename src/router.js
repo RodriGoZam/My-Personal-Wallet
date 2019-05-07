@@ -4,7 +4,6 @@ import Home from './views/Home.vue'
 import Wallet from './views/Wallet.vue'
 import CrearWallet from './views/CrearWallet.vue'
 
-
 Vue.use(Router)
 
 export default new Router({

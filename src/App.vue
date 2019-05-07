@@ -18,7 +18,7 @@
     <v-container>
       <router-view />
     </v-container>
-    <v-footer app fixed>
+    <v-footer app fixed class="light green">
       <span>Certifiacion Project</span>
     </v-footer>
   </v-app>
@@ -47,8 +47,6 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
   margin-top: 60px;
 }
 </style>
-
