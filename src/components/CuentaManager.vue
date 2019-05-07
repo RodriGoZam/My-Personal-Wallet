@@ -3,11 +3,11 @@
         <div>
             <v-layout column>
                 <h1 class="titulo">{{cuenta.nombre}}</h1>
-                 <h1 class="saldo">Saldo: {{cuenta.fondos}}</h1>
+                <h1 class="saldo">Saldo: {{cuenta.fondos}}</h1>
             </v-layout>
             <Lista  :items = "ingresos" titulo="Ingresos"/>
             <Lista :items = "egresos" titulo="Egresos"/>
-            <Herramientas/> 
+            <Herramientas/>
         </div>
     </v-container>
 </template>

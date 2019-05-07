@@ -15,13 +15,13 @@ export default {
   },
   computed: {
     ingresos () {
-       return this.$store.state.ingresos;
+      return this.$store.state.ingresos
     },
     egresos () {
-       return this.$store.state.egresos;
+      return this.$store.state.egresos
     },
     cuenta () {
-      return {nombre: 'ahorros', fondos: '100'}
+      return { nombre: 'ahorros', fondos: '100' }
     }
   }
 }

@@ -26,20 +26,20 @@ export default {
     titulo: String
   },
   data () {
-      return {
-          cabecerasTabla: [
-                { text: 'Categoria',
-                align: 'left',
-                sortable: false,
-                value: 'categoria'},
-                { text: 'Monto', value: 'monto' },
-                { text: 'Fecha', value: 'fecha' }
-            ],
-            paginacionTabla: [
-                2, 4
-            ]
-      }
-  } 
+    return {
+      cabecerasTabla: [
+        { text: 'Categoria',
+          align: 'left',
+          sortable: false,
+          value: 'categoria' },
+        { text: 'Monto', value: 'monto' },
+        { text: 'Fecha', value: 'fecha' }
+      ],
+      paginacionTabla: [
+        2, 4
+      ]
+    }
+  }
 }
 </script>
 <style scoped>
