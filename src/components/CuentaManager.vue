@@ -1,11 +1,13 @@
 <template>
     <v-container fluid class="contenedor">
         <div>
-            <p class="titulo">{{cuenta.nombre}}</p>
+            <v-layout column>
+                <h1 class="titulo">{{cuenta.nombre}}</h1>
+                 <h1 class="saldo">Saldo: {{cuenta.fondos}}</h1>
+            </v-layout>
             <Lista  :items = "ingresos" titulo="Ingresos"/>
             <Lista :items = "egresos" titulo="Egresos"/>
-            <p class="saldo">Saldo: {{cuenta.fondos}}</p>
-            <Herramientas/>
+            <Herramientas/> 
         </div>
     </v-container>
 </template>
@@ -29,12 +31,14 @@ export default {
     display: inline-block;
 }
 .titulo {
-    size: 36;
+    font-size: 80;
     text-transform: uppercase;
     text-align: center;
+    color: #64C195;
 }
 .saldo {
-    size: 36;
+    size: 60;
     text-align: right;
+     color: #64C195;
 }
 </style>
