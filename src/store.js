@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    cuentas: [  { icon: 'home', text: 'Inicio', route: '/'},{ icon: 'add_circle_outline', text: 'Nuevo Wallet', route: '/CrearWallet'},  { icon: 'account_balance', text: 'Ahorros', route: '/wallet'}],
+    cuentas: [ { icon: 'home', text: 'Inicio', route: '/'},{ icon: 'add_circle_outline', text: 'Nuevo Wallet', route: '/CrearWallet'},  { icon: 'account_balance', text: 'Ahorros', route: '/wallet'}],
     categoriaIngresos: [ 'Salario', 'Transferencia', 'Otros' ],
     categoriaEgresos: [ 'Expensas', 'Transferencia', 'Otros' ],
     ingresos: [ { cuenta: 'ahorros', fecha: '01/05/2019', monto: 100, categoria: 'Salario' },
@@ -19,7 +19,7 @@ export default new Vuex.Store({
   },
   actions: {
     addCuenta(context, newCuenta) {
-      context.cuentas.push(newCuenta);
+      context.commit('addCuenta',newCuenta);
     }
   }
 })

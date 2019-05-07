@@ -51,9 +51,3 @@
     
   }
 </script>
-
-<style>
-  .cuenta {
-    
-  }
-</style>
