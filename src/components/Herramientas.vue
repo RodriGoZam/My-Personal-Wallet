@@ -7,7 +7,8 @@
                         <v-layout>
                             <BotonTransacciones tipo="Ingreso" :cuenta="cuenta" :categorias="categoriaIngresos" @setAlerta = "setAlerta"/>
                             <BotonTransacciones tipo="Egreso" :cuenta="cuenta" :categorias="categoriaEgresos" @setAlerta = "setAlerta"/>
-                            <BotonTransferencia :cuenta="cuenta"/>
+                            <BotonTransferencia :cuenta="cuenta" @setAlerta = "setAlerta"/>
+                            <BotonCategorias :categoriaIngresos="categoriaIngresos" :categoriaEgresos="categoriaEgresos"/>
                             <v-btn
                                     color="#64C195"
                                     dark
@@ -16,46 +17,6 @@
                             >
                                     Reporte
                             </v-btn>
-                            <v-bottom-sheet v-model="sheetCategoria">
-                                <template v-slot:activator>
-                                <v-btn
-                                    color="#64C195"
-                                    dark
-                                    round
-                                    id="botonCategoria"
-                                >
-                                    +Categoria
-                                </v-btn>
-                                </template>
-                                <v-list>
-                                    <p class="text-md-center">Nueva Categoria</p>
-                                    <v-layout column>
-                                        <v-combobox
-                                        :items= "this.tiposCategoria"
-                                        label="Seleccione el tipo de categoria"
-                                        chips
-                                        autofocus
-                                        type="button"
-                                        class="seleccion"
-                                        >
-                                        </v-combobox>
-                                        <v-text-field
-                                        class="input"
-                                        label="Nombre"
-                                        ></v-text-field>
-                                        <v-btn
-                                        color="#64C195"
-                                        dark
-                                        round
-                                        class="input"
-                                        id="AgregarCategoria"
-                                        @click="sheetCategoria = false"
-                                        >
-                                        Agregar
-                                        </v-btn>
-                                    </v-layout>
-                                </v-list>
-                            </v-bottom-sheet>
                             <v-spacer></v-spacer>
                              <v-expand-transition>
                                 <div
@@ -84,10 +45,12 @@
 <script>
 import BotonTransacciones from '@/components/BotonTransacciones.vue'
 import BotonTransferencia from '@/components/BotonTransferencia.vue'
+import BotonCategorias from '@/components/BotonCategorias.vue'
 export default {
     components: {
         BotonTransacciones,
-        BotonTransferencia
+        BotonTransferencia,
+        BotonCategorias
     },
     props: {
         cuenta: Object
@@ -102,16 +65,12 @@ export default {
     },
     data () {
         return {
-         tiposCategoria: ['Ingreso', 'Egreso'],
          alerta: {mensaje: '', tipo: 'success', visible: false, color: '#64C195'},
          sheetTransferencia: false,
          sheetCategoria: false,
         }
     },
     methods: {
-        agragarIngreso (categoria, Monto) {
-
-        },
         setAlerta (alerta) {
             this.alerta = alerta
         }

@@ -62,7 +62,7 @@
                 round
                 class="input"
                 id="AgregarTransferencia"
-                @click="sheetTransferencia = false"
+                @click="transferir"
                 >
                     Enviar
                 </v-btn>
@@ -88,6 +88,37 @@ export default {
             return this.$store.state.cuentas.filter(cuenta=>cuenta.nombre!=this.cuenta.nombre).map(function(i) {
                     return i.nombre;
                     })
+        }
+    },
+    methods: {
+        transferir () {
+            try {
+                if (this.cuentaDestino === '') {
+                    throw  new Error ("Seleccione la cuenta objetivo")
+                }else if (this.monto <= 0) {
+                    throw  new Error ("Ingrese un monto mayor a 0")
+                }
+                this.cuenta.fondos = Number(this.cuenta.fondos) - Number(this.monto)
+                this.$store.dispatch('agregarEgreso',
+                     {cuenta: this.cuenta.nombre, fecha: this.fecha, monto: this.monto, categoria: 'Transferencia'})
+                this.$store.dispatch('actualizarSaldo', this.cuenta)
+                this.$store.dispatch('agregarIngreso',
+                     {cuenta: this.cuentaDestino, fecha: this.fecha, monto: this.monto, categoria: 'Transferencia'})
+                     let cuentaObjActualizada = this.$store.state.cuentas.find(cuenta=>cuenta.nombre === this.cuentaDestino)
+                     cuentaObjActualizada.fondos = Number(cuentaObjActualizada.fondos) + Number(this.monto)
+                this.$store.dispatch('actualizarSaldo', cuentaObjActualizada)
+                this.generarAlerta({mensaje: 'Agregado exitosamente', tipo: 'success', visible: true, color: '#64C195'})
+            } catch (error) {
+                this.generarAlerta({mensaje: error, tipo: 'error', visible: true, color: 'red'})
+            } finally {
+                this.sheet=false,
+                this.fecha= new Date().toISOString().substr(0, 10),
+                this.monto= 0,
+                this.cuentaDestino= ''
+            }
+        },
+        generarAlerta (alerta) {
+            this.$emit('setAlerta', alerta)
         }
     }
 }
