@@ -7,47 +7,7 @@
                         <v-layout>
                             <BotonTransacciones tipo="Ingreso" :cuenta="cuenta" :categorias="categoriaIngresos" @setAlerta = "setAlerta"/>
                             <BotonTransacciones tipo="Egreso" :cuenta="cuenta" :categorias="categoriaEgresos" @setAlerta = "setAlerta"/>
-                            <v-bottom-sheet v-model="sheetTransferencia">
-                                <template v-slot:activator>
-                                <v-btn
-                                    color="#64C195"
-                                    dark
-                                    round
-                                    id="botonTransferencia"
-                                >
-                                    Transferencia
-                                </v-btn>
-                                </template>
-                                <v-list>
-                                    <p class="text-md-center">Nueva Transferencia</p>
-                                    <v-layout column>
-                                        <v-combobox
-                                        :items="otrasCuentas"
-                                        label="Seleccione la cuenta destinada"
-                                        chips
-                                        autofocus
-                                        type="button"
-                                        class="seleccion"
-                                        >
-                                        </v-combobox>
-                                        <v-text-field
-                                        class="input"
-                                        label="Monto"
-                                        type="number"
-                                        ></v-text-field>
-                                        <v-btn
-                                        color="#64C195"
-                                        dark
-                                        round
-                                        class="input"
-                                        id="AgregarTransferencia"
-                                        @click="sheetTransferencia = false"
-                                        >
-                                        Enviar
-                                        </v-btn>
-                                    </v-layout>
-                                </v-list>
-                            </v-bottom-sheet>
+                            <BotonTransferencia :cuenta="cuenta"/>
                             <v-btn
                                     color="#64C195"
                                     dark
@@ -123,24 +83,21 @@
 </template>
 <script>
 import BotonTransacciones from '@/components/BotonTransacciones.vue'
+import BotonTransferencia from '@/components/BotonTransferencia.vue'
 export default {
     components: {
-        BotonTransacciones
+        BotonTransacciones,
+        BotonTransferencia
     },
     props: {
         cuenta: Object
     },
     computed: {
         categoriaIngresos () {
-            return this.$store.state.categoriaIngresos
+            return this.$store.state.categoriaIngresos.filter(categoria => categoria != 'Transferencia')
         },
         categoriaEgresos () {
-            return this.$store.state.categoriaEgresos
-        },
-        otrasCuentas () {
-            return this.$store.state.cuentas.filter(cuenta=>cuenta.nombre!=this.cuenta.nombre).map(function(i) {
-                    return i.nombre;
-                    })
+            return this.$store.state.categoriaEgresos.filter(categoria => categoria != 'Transferencia')
         }
     },
     data () {
