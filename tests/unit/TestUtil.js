@@ -6,7 +6,7 @@ export default {
   getDefaultStore() {
     return new Vuex.Store({
       state: {
-        cuentas: [{ nombre: 'ahorros', fondos: 100 }],
+        cuentas: [{ nombre: 'ahorros', fondos: 100 }, { nombre: 'comida', fondos: 200 }, { nombre: 'Fiesta', fondos: 200 }],
         categoriaIngresos: ['Salario', 'Transferencia', 'Otros'],
         categoriaEgresos: ['Expensas', 'Transferencia', 'Otros'],
         ingresos: [],
