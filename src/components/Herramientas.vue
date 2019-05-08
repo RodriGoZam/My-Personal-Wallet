@@ -4,88 +4,8 @@
             <v-flex xs12>
                 <div>
                     <v-layout>
-                        <v-bottom-sheet v-model="sheetIngreso">
-                            <template v-slot:activator>
-                            <v-btn
-                                color="#64C195"
-                                dark
-                                round
-                                id="botonIngreso"
-                            >
-                                +Ingreso
-                            </v-btn>
-                            </template>
-                            <v-list>
-                                <p class="text-md-center">Nuevo Ingreso</p>
-                                <v-layout column>
-                                    <v-combobox
-                                    :items="categoriaIngresos"
-                                    label="Seleccione una categoria de ingreso"
-                                    chips
-                                    autofocus
-                                    type="button"
-                                    class="seleccion"
-                                    >
-                                    </v-combobox>
-                                    <v-text-field
-                                    class="input"
-                                    label="Monto"
-                                    type="number"
-                                    ></v-text-field>
-                                    <v-btn
-                                    color="#64C195"
-                                    dark
-                                    round
-                                    class="input"
-                                    id="AgregarIngreso"
-                                    @click="sheetIngreso = false"
-                                    >
-                                    Agregar
-                                    </v-btn>
-                                </v-layout>
-                            </v-list>
-                        </v-bottom-sheet>
-                        <v-bottom-sheet v-model="sheetEgreso">
-                            <template v-slot:activator>
-                            <v-btn
-                                color="#64C195"
-                                dark
-                                round
-                                id="botonEgreso"
-                            >
-                                +Egreso
-                            </v-btn>
-                            </template>
-                            <v-list>
-                                <p class="text-md-center">Nuevo Egreso</p>
-                                <v-layout column>
-                                    <v-combobox
-                                    :items="categoriaEgresos"
-                                    label="Seleccione una categoria de egreso"
-                                    chips
-                                    autofocus
-                                    type="button"
-                                    class="seleccion"
-                                    >
-                                    </v-combobox>
-                                    <v-text-field
-                                    class="input"
-                                    label="Monto"
-                                    type="number"
-                                    ></v-text-field>
-                                    <v-btn
-                                    color="#64C195"
-                                    dark
-                                    round
-                                    class="input"
-                                    id="AgregarEgreso"
-                                    @click="sheetEgreso = false"
-                                    >
-                                    Agregar
-                                    </v-btn>
-                                </v-layout>
-                            </v-list>
-                        </v-bottom-sheet>
+                        <BotonTransacciones tipo="Ingreso" :categorias="categoriaIngresos"/>
+                        <BotonTransacciones tipo="Egreso" :categorias="categoriaEgresos"/>
                         <v-bottom-sheet v-model="sheetTransferencia">
                             <template v-slot:activator>
                             <v-btn
@@ -182,7 +102,11 @@
     </v-container>
 </template>
 <script>
+import BotonTransacciones from '@/components/BotonTransacciones.vue'
 export default {
+    components: {
+        BotonTransacciones
+    },
     props: {
         cuenta: Object
     },
@@ -209,7 +133,9 @@ export default {
         }
     },
     methods: {
-        
+        agragarIngreso (categoria, Monto) {
+
+        }
     }
 }
 </script>
