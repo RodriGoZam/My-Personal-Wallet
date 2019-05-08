@@ -96,7 +96,15 @@ export default {
                     this.cuenta.fondos = Number(this.monto) + Number(this.cuenta.fondos)
                     this.$store.dispatch('agregarIngreso',
                      {cuenta: this.cuenta.nombre, fecha: this.fecha, monto: this.monto, categoria: this.categoria})
-                    
+                     break;
+                    case 'Egreso':
+                    if (Number(this.monto) > Number(this.cuenta.fondos)) {
+                        throw  new Error ("Saldo insuficiente")
+                    }
+                    this.cuenta.fondos = Number(this.cuenta.fondos) - Number(this.monto)
+                    this.$store.dispatch('agregarEgreso',
+                     {cuenta: this.cuenta.nombre, fecha: this.fecha, monto: this.monto, categoria: this.categoria})
+                    break;
                 }
                 this.$store.dispatch('actualizarSaldo', this.cuenta)
                 this.generarAlerta({mensaje: 'Agregado exitosamente', tipo: 'success', visible: true, color: '#64C195'})

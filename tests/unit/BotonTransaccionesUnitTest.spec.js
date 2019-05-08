@@ -32,7 +32,7 @@ describe('Unit tests relacionados a agregar un nuevo ingreso', () => {
     assert.equal(nuevosDatos[0].fecha, store.state.ingresos[0].fecha, 'no se agrega la fecha correctamente')
     assert.equal(nuevosDatos[0].monto, store.state.ingresos[0].monto, 'no se agrega el monto correctamente')
     assert.equal(nuevosDatos[0].categoria, store.state.ingresos[0].categoria, 'no se agrega la categoria correctamente')
-    assert.equal(220, store.state.cuentas[0].fondos, 'no se actualiza el saldo en la cuenta')
+    assert.equal(220, store.state.cuentas[0].fondos, 'no se actualiza el saldo en la cuenta ' + store.state.cuentas[0].fondos)
   })
   it('No se pueden agregar ingresos de montos menores o iguales a 0', () => {
     wrapper.vm.monto = -9
