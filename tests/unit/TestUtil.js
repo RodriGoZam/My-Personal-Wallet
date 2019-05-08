@@ -9,19 +9,31 @@ export default {
         cuentas: [{ nombre: 'ahorros', fondos: 100 }],
         categoriaIngresos: ['Salario', 'Transferencia', 'Otros'],
         categoriaEgresos: ['Expensas', 'Transferencia', 'Otros'],
-        ingresos: [
-          { cuenta: 'ahorros', fecha: '01/05/2019', monto: 100, categoria: 'Salario',
-          },
-          { cuenta: 'ahorros', fecha: '01/05/2019', monto: 100, categoria: 'Otros',
-          }],
-        egresos: [
-          { cuenta: 'ahorros', fecha: '03/05/2019', monto: 100, categoria: 'Expensas',
-          }],
+        ingresos: [],
+        egresos: [],
       },
       mutations: {
+        agregarIngreso (context, nuevoIngreso) {
+          context.ingresos.unshift(nuevoIngreso)
+        },
+        agregarEgreso (context, nuevoEgreso) {
+          context.egresos.unshift(nuevoEgreso)
+        },
+        actualizarSaldo (context, cuentaModificada) {
+          context.cuentas.find(cuenta => cuenta.nombre === cuentaModificada.nombre).fondos = cuentaModificada.fondos;
+        }
       },
       actions: {
-      },
+        agregarIngreso (context, nuevoIngreso) {
+          context.commit('agregarIngreso', nuevoIngreso)
+        },
+        agregarEgreso (context, nuevoEgreso) {
+          context.commit('agregarEgreso', nuevoEgreso)
+        },
+        actualizarSaldo (context, cuentaModificada) {
+          context.commit('actualizarSaldo', cuentaModificada)
+        }
+      }
     })
   },
 }

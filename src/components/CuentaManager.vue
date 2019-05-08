@@ -1,13 +1,13 @@
 <template>
     <v-container fluid class="contenedor">
         <div>
-            <v-layout column>
-                <h1 class="titulo">{{cuenta.nombre}}</h1>
-                <h1 class="saldo">Saldo: {{cuenta.fondos}}</h1>
+            <v-layout column style="heigth: 10%">
+                <h3 class="titulo">{{cuenta.nombre}}</h3>
+                <h3 class="saldo">Saldo: {{cuenta.fondos}}</h3>
             </v-layout>
-            <Lista  :items = "ingresos" titulo="Ingresos"/>
-            <Lista :items = "egresos" titulo="Egresos"/>
-            <Herramientas :cuenta="cuenta"/>
+            <Lista  :items = "ingresos" titulo="Ingresos" style="heigth: 10%"/>
+            <Lista :items = "egresos" titulo="Egresos" height="15%"/>
+            <Herramientas :cuenta="cuenta" height="25%"/>
         </div>
     </v-container>
 </template>
@@ -37,14 +37,14 @@ export default {
     display: inline-block;
 }
 .titulo {
-    font-size: 80;
     text-transform: uppercase;
     text-align: center;
     color: #64C195;
 }
 .saldo {
-    size: 60;
     text-align: right;
      color: #64C195;
+     width: 80%;
+     margin-left: 10%; 
 }
 </style>

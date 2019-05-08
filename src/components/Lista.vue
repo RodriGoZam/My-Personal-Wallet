@@ -7,12 +7,12 @@
                         :headers="cabecerasTabla"
                         :items="items"
                         class="lista"
-                        :rows-per-page-items= "paginacionTabla"
+                        hide-actions
                     >
                         <template v-slot:items="props">
-                            <td class="text-xs-rigth">{{ props.item.categoria }}</td>
-                            <td class="text-xs-rigth">{{ props.item.monto }}</td>
                             <td class="text-xs-rigth">{{ props.item.fecha }}</td>
+                            <td class="text-xs-rigth">{{ props.item.monto }}</td>
+                            <td class="text-xs-rigth">{{ props.item.categoria }}</td>
                         </template>
                     </v-data-table>
             </v-flex>
@@ -28,16 +28,13 @@ export default {
   data() {
     return {
       cabecerasTabla: [
-        { text: 'Categoria',
+        { text: 'Fecha',
           align: 'left',
           sortable: false,
-          value: 'categoria' },
+          value: 'fecha' },
         { text: 'Monto', value: 'monto' },
-        { text: 'Fecha', value: 'fecha' },
-      ],
-      paginacionTabla: [
-        2, 4,
-      ],
+        { text: 'Categoria', value: 'categoria' },
+      ]
     }
   },
 }
@@ -45,12 +42,13 @@ export default {
 <style scoped>
 .titulo {
     background-color: #64C195;
-    width: 100%;
+    width: 80%;
+    margin-left: 10%
 }
 .lista {
-    height: 200px;
-    width: 100%;
-    margin-bottom: 10px;
-    overflow-y: scroll
+    width: 80%;
+    margin-left: 10%;
+    height: 180px;
+    overflow-y: scroll;
 }
 </style>
