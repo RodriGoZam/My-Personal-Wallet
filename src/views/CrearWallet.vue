@@ -4,9 +4,21 @@
             <v-layout row>
                 <v-flex xs12 sm6 offset-sm3>
                     <v-text-field id="nombre" v-model="nombre" size="large" color="green" label="Nombre de Cuenta" prepend-icon="account_balance"></v-text-field>
-                     <v-btn color="success" :disabled="!NombreEsValido" dark large @click.stop="addCuenta()">Crear Wallet</v-btn>
+                     <v-btn color="success" :disabled="!NombreEsValido" dark large @click="addCuenta(), snackbar = true">Crear Wallet</v-btn>
                 </v-flex>
             </v-layout>
+            <v-snackbar
+             v-model="snackbar"
+             :timeout="timeout"
+               :top="'top'">
+                {{snackbarText}}
+                <v-btn
+                 color="green"
+                 flat
+                 @click="snackbar = false">
+                  OK 
+                 </v-btn>
+             </v-snackbar>
         </form>
     </v-container>
 </template>
@@ -17,8 +29,10 @@ export default {
     data() {
         return{
             nombre: '',
-            nombreExiste: false
-
+            nombreExiste: false,
+            snackbar: false,
+            timeout: 2000,
+            snackbarText: ''
         }
     },
     computed: {
@@ -35,7 +49,7 @@ export default {
             {
                 if(this.nombre == this.cuentas[i].text)
                 {
-                    console.log('Cuenta ya Existe');
+                    this.snackbarText = 'Cuenta "' + this.nombre + '" ya Existe',
                     this.nombreExiste = true
                     break;
                 }
@@ -45,8 +59,8 @@ export default {
                 this.$store.dispatch('addCuenta',
                 { icon: 'account_balance', text: this.nombre , route: '/wallet'}
                 );
+                this.snackbarText = 'Cuenta "' + this.nombre + '" Creado',
                 this.nombre = ''
-                console.log('Cuenta Creada')
             }
             this.nombreExiste = false
         }

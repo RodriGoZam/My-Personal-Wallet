@@ -1,20 +1,6 @@
 <template>
   <v-app class="layout" id="inspire"  >
     <NavDrawer />
-    <!--v-content>
-      <-router-link > </router-link>
-      <v-container fluid fill-height>
-        <v-layout justify-center align-center>
-          <v-flex shrink>
-            <v-tooltip right>
-              <template v-slot:activator="{ on }">
-              </template>
-            </v-tooltip>
-          </v-flex>
-        </v-layout>
-      </v-container>
-      <router-view />
-    </v-content-->
     <v-container>
       <router-view />
     </v-container>

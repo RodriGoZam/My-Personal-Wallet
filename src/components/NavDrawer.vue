@@ -17,7 +17,7 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar app fixed clipped-left class="green">
+    <v-toolbar app fixed clipped-left color="green">
       <v-toolbar-side-icon class="drawerbutton" @click="openDrawer"></v-toolbar-side-icon>
       <v-toolbar-title>Mi Billetera Personal</v-toolbar-title>
     </v-toolbar>
