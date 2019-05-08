@@ -10,15 +10,18 @@ describe('Unit tests relacionados a agregasn un nuevo ingreso', () => {
   let wrapper
   let store
   const assert = require('chai').assert
-  const nuevosDatos = [{ cuenta: 'ahorros', fecha: '06/05/2019', monto: 120, categoria: 'Salario' },
-    { cuenta: 'ahorros', fecha: '02/05/2019', monto: 30, categoria: 'Otros' }]
+  const nuevosDatos = [
+    { cuenta: 'ahorros', fecha: '06/05/2019', monto: 120, categoria: 'Salario',
+    },
+    { cuenta: 'ahorros', fecha: '02/05/2019', monto: 30, categoria: 'Otros',
+    }]
 
-  beforeEach(function () {
+  beforeEach(function() {
     store = TestUtil.getDefaultStore()
     wrapper = shallowMount(Herramientas,
-      {
-        store
-      })
+        {
+          store,
+        })
   })
   it('Agrega el nuevo ingreso al inicio del array ingresos de la store', () => {
     wrapper.vm.agregarIngreso()

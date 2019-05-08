@@ -7,7 +7,7 @@
             </v-layout>
             <Lista  :items = "ingresos" titulo="Ingresos"/>
             <Lista :items = "egresos" titulo="Egresos"/>
-            <Herramientas/>
+            <Herramientas :cuenta="cuenta"/>
         </div>
     </v-container>
 </template>
@@ -17,12 +17,18 @@ import Herramientas from '@/components/Herramientas.vue'
 export default {
   components: {
     Lista,
-    Herramientas
+    Herramientas,
   },
   props: {
-    cuenta: Object,
-    ingresos: Array,
-    egresos: Array
+    cuenta: Object
+  },
+  computed: {
+    ingresos() {
+      return this.$store.state.ingresos.filter(ingreso=>ingreso.cuenta==this.cuenta.nombre);
+    },
+    egresos() {
+      return this.$store.state.egresos.filter(egreso=>egreso.cuenta==this.cuenta.nombre);
+    },
   }
 }
 </script>

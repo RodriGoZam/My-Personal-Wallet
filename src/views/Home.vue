@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <CuentaManager :cuenta="cuenta" :ingresos="ingresos" :egresos="egresos"/>
+    <CuentaManager :cuenta="cuenta"/>
   </div>
 </template>
 
@@ -11,18 +11,12 @@ import CuentaManager from '@/components/CuentaManager.vue'
 export default {
   name: 'home',
   components: {
-    CuentaManager
+    CuentaManager,
   },
   computed: {
-    ingresos () {
-      return this.$store.state.ingresos
-    },
-    egresos () {
-      return this.$store.state.egresos
-    },
-    cuenta () {
+    cuenta() {
       return { nombre: 'ahorros', fondos: '100' }
-    }
-  }
+    },
+  },
 }
 </script>

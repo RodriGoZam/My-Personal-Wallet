@@ -23,9 +23,9 @@
 export default {
   props: {
     items: Array,
-    titulo: String
+    titulo: String,
   },
-  data () {
+  data() {
     return {
       cabecerasTabla: [
         { text: 'Categoria',
@@ -33,13 +33,13 @@ export default {
           sortable: false,
           value: 'categoria' },
         { text: 'Monto', value: 'monto' },
-        { text: 'Fecha', value: 'fecha' }
+        { text: 'Fecha', value: 'fecha' },
       ],
       paginacionTabla: [
-        2, 4
-      ]
+        2, 4,
+      ],
     }
-  }
+  },
 }
 </script>
 <style scoped>
