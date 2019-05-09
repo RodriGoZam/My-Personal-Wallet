@@ -8,7 +8,7 @@
                             <BotonTransacciones tipo="Ingreso" :cuenta="cuenta" :categorias="categoriaIngresos" @setAlerta = "setAlerta"/>
                             <BotonTransacciones tipo="Egreso" :cuenta="cuenta" :categorias="categoriaEgresos" @setAlerta = "setAlerta"/>
                             <BotonTransferencia :cuenta="cuenta" @setAlerta = "setAlerta"/>
-                            <BotonCategorias :categoriaIngresos="categoriaIngresos" :categoriaEgresos="categoriaEgresos"/>
+                            <BotonCategorias :categoriaIngresos="categoriaIngresos" :categoriaEgresos="categoriaEgresos" @setAlerta = "setAlerta"/>
                             <v-btn
                                     color="#64C195"
                                     dark

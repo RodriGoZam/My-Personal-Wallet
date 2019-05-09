@@ -21,6 +21,12 @@ export default {
         },
         actualizarSaldo (context, cuentaModificada) {
           context.cuentas.find(cuenta => cuenta.nombre === cuentaModificada.nombre).fondos = cuentaModificada.fondos;
+        },
+        agregarCategoriaIngreso (context, nuevaCategoria) {
+          context.categoriaIngresos.unshift(nuevaCategoria)
+        },
+        agregarCategoriaEgreso (context, nuevaCategoria) {
+          context.categoriaEgresos.unshift(nuevaCategoria)
         }
       },
       actions: {
@@ -32,8 +38,14 @@ export default {
         },
         actualizarSaldo (context, cuentaModificada) {
           context.commit('actualizarSaldo', cuentaModificada)
+        },
+        agregarCategoriaIngreso (context, nuevaCategoria) {
+          context.commit('agregarCategoriaIngreso', nuevaCategoria)
+        },
+        agregarCategoriaEgreso (context, nuevaCategoria) {
+          context.commit('agregarCategoriaEgreso', nuevaCategoria)
         }
-      }
+      },
     })
   },
 }

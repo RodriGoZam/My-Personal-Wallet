@@ -34,7 +34,7 @@
                 round
                 class="input"
                 id="AgregarCategoria"
-                @click="sheetCategoria = false"
+                @click="agregar"
                 >
                     Agregar
                 </v-btn>
@@ -54,6 +54,41 @@ export default {
             tipo:'',
             nombre:'',
             sheet: false
+        }
+    },
+    methods: {
+        agregar () {
+            try {
+                if (this.nombre === '') {
+                    throw new Error('Introdusca un nombre')
+                } else if (this.tipo === '') {
+                    throw new Error('Seleccione un tipo')
+                }
+                switch (this.tipo) {
+                    case 'Ingreso':
+                    if (this.categoriaIngresos.find(categoria=>categoria===this.nombre) !== undefined) {
+                        throw new Error('Cateogria ya existente')
+                    }
+                    this.$store.dispatch('agregarCategoriaIngreso', this.nombre)
+                    break;
+                    case 'Egreso':
+                    if (this.categoriaEgresos.find(categoria=>categoria===this.nombre) !== undefined) {
+                        throw new Error('Cateogria ya existente')
+                    }
+                    this.$store.dispatch('agregarCategoriaEgreso', this.nombre)
+                    break;
+                }
+                this.generarAlerta({mensaje: 'Agregado exitosamente', tipo: 'success', visible: true, color: '#64C195'})
+            } catch (error) {
+                this.generarAlerta({mensaje: error, tipo: 'error', visible: true, color: 'red'})
+            } finally {
+                this.sheet = false
+                this.tipo='',
+                this.nombre=''
+            }
+        },
+        generarAlerta (alerta) {
+            this.$emit('setAlerta', alerta)
         }
     }
 }
