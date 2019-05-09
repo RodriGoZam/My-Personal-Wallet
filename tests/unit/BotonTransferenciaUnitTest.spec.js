@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
-import TestUtil from './TestUtil.js'
+import TestUtil from '@/Utils/TestUtil.js'
 import BotonTransferencia from '@/components/BotonTransferencia'
 
 import Vue from 'vue'
