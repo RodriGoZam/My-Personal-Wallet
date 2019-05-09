@@ -1,10 +1,7 @@
 <template>
     <v-container fluid class="contenedor">
         <div>
-            <v-layout column style="heigth: 10%">
-                <h3 class="titulo">{{cuenta.nombre}}</h3>
-                <h3 class="saldo">Saldo: {{cuenta.fondos}}</h3>
-            </v-layout>
+            <InformacionCuenta :cuentaActual="cuenta.nombre" :cuentaOriginal="cuenta.nombre" :fondos="cuenta.fondos"/>
             <Lista  :items = "ingresos" titulo="Ingresos" style="heigth: 10%"/>
             <Lista :items = "egresos" titulo="Egresos" height="15%"/>
             <Herramientas :cuenta="cuenta" height="25%"/>
@@ -14,10 +11,12 @@
 <script>
 import Lista from '@/components/Lista.vue'
 import Herramientas from '@/components/Herramientas.vue'
+import InformacionCuenta from '@/components/InformacionCuenta.vue'
 export default {
   components: {
     Lista,
     Herramientas,
+    InformacionCuenta
   },
   props: {
     cuenta: Object
@@ -35,16 +34,5 @@ export default {
 <style scoped>
 .contenedor {
     display: inline-block;
-}
-.titulo {
-    text-transform: uppercase;
-    text-align: center;
-    color: #64C195;
-}
-.saldo {
-    text-align: right;
-     color: #64C195;
-     width: 80%;
-     margin-left: 10%; 
 }
 </style>

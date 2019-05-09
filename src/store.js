@@ -26,6 +26,9 @@ export default new Vuex.Store({
     },
     agregarCategoriaEgreso (context, nuevaCategoria) {
       context.categoriaEgresos.unshift(nuevaCategoria)
+    },
+    editarCuentaNombre (context, cuentas) {
+      context.cuentas.find(cuenta => cuenta.nombre === cuentas.nombreAntiguo).nombre = cuentas.nombreNuevo;
     }
   },
   actions: {
@@ -43,6 +46,9 @@ export default new Vuex.Store({
     },
     agregarCategoriaEgreso (context, nuevaCategoria) {
       context.commit('agregarCategoriaEgreso', nuevaCategoria)
+    },
+    editarCuentaNombre (context, cuentas) {
+      context.commit('editarCuentaNombre', cuentas)
     }
   },
 })
