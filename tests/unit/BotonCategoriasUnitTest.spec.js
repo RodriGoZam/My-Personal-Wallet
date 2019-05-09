@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
-import TestUtil from './TestUtil.js'
+import TestUtil from '../../src/Utils/TestUtil.js/index.js'
 import BotonCategorias from '@/components/BotonCategorias.vue'
 
 import Vue from 'vue'
