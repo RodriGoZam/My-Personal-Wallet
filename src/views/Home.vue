@@ -1,15 +1,12 @@
 <template>
-  <div class="home">
-    Vista principal, aqui agrengan los componentes
-  </div>
+  <report/>
 </template>
 
 <script>
-// @ is an alias to /src
-
+import report from '@/components/report.vue'
 export default {
-  name: 'home',
   components: {
+    report
   }
 }
 </script>

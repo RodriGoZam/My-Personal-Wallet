@@ -1,13 +1,16 @@
 import { expect } from 'chai'
 import { shallowMount } from '@vue/test-utils'
-import HelloWorld from '@/components/HelloWorld.vue'
+import NavDrawer from '@/components/NavDrawer.vue'
 
-describe('HelloWorld.vue', () => {
-  it('renders props.msg when passed', () => {
-    const msg = 'new message'
-    const wrapper = shallowMount(HelloWorld, {
-      propsData: { msg }
-    })
-    expect(wrapper.text()).to.include(msg)
+describe('NavDrawer.vue', () => {
+  let wrapper
+
+  beforeEach(function () {
+    wrapper = shallowMount(NavDrawer)
+  })
+  it('drawer works properly', () => {
+    wrapper.setData({ drawer: false })
+    wrapper.find('.drawerbutton').trigger('click.stop')
+    expect(wrapper.vm.drawer).to.equal(true)
   })
 })
