@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <NavDrawer/>
+    <NavDrawer @actualizarCuenta="actualizarCuenta"/>
     <CuentaManager :cuenta="cuenta"/>
   </div>
 </template>
@@ -16,10 +16,14 @@ export default {
     CuentaManager,
     NavDrawer
   },
-  computed: {
-    cuenta() {
-      return { nombre: 'ahorros', fondos: '100' }
-    },
+  props: {
+      cuenta: { icon: 'account_balance', nombre: 'ahorros', fondos: 100, route: '/' }
+      
   },
+  methods: {
+    actualizarCuenta (cuenta) {
+      this.cuenta = cuenta
+    }
+  }
 }
 </script>

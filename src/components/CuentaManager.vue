@@ -30,8 +30,8 @@ export default {
     },
   },
   methods: {
-    actualizarCuenta (nombre) {
-      this.cuent.nombre = nombre
+    actualizarCuenta (cuenta) {
+      this.cuenta.nombre = cuenta.nombre
     }
   }
 }

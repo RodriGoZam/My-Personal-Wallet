@@ -5,11 +5,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    cuentas: [{ icon: 'home', nombre: 'ahorros', fondos: 100, route: '/' }, {icon: 'home', nombre: 'comida', fondos: 150, route: '/' }],
+    cuentas: [{ icon: 'account_balance', nombre: 'ahorros', fondos: 100, route: '/' }, {icon: 'account_balance', nombre: 'comida', fondos: 150, route: '/' }],
     categoriaIngresos: ['Salario', 'Transferencia', 'Otros'],
     categoriaEgresos: ['Expensas', 'Transferencia', 'Otros'],
     ingresos: [],
     egresos: [],
+    cuentaActual: { icon: 'account_balance', nombre: 'ahorros', fondos: 100, route: '/' }
   },
   mutations: {
     agregarIngreso (context, nuevoIngreso) {
@@ -29,6 +30,7 @@ export default new Vuex.Store({
     },
     editarCuentaNombre (context, cuentas) {
       context.cuentas.find(cuenta => cuenta.nombre === cuentas.nombreAntiguo).nombre = cuentas.nombreNuevo;
+      context.cuentaActual = context.cuentas.find(cuenta => cuenta.nombre === cuentas.nombreNuevo)
     },
     addCuenta(context, newCuenta) {
       context.cuentas.push(newCuenta);

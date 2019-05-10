@@ -6,7 +6,7 @@
                 <div>
                     <v-layout> 
                         <div>
-                            <h3 class="titulo">Saldo: </h3>
+                            <h3 class="titulo">Cuenta: </h3>
                             <v-text-field
                             v-model="cuentaActual"
                             :readonly="!edicion"
@@ -28,7 +28,7 @@
                         >
                         <v-icon>save</v-icon>
                         </v-btn>
-                        <h3 class="saldo">Saldo: {{fondos}}</h3>
+                        <h3 class="saldo">SALDO: {{fondos}}</h3>
                         <v-spacer></v-spacer>
                         <v-expand-transition>
                                 <div
@@ -58,7 +58,7 @@ export default {
     props: {
         cuentaActual: String,
         cuentaOriginal: String,
-        fondos: String
+        fondos: Number
     },
     data () {
         return {
@@ -76,10 +76,10 @@ export default {
                 } else if (this.otrasCuentas.find(cuentaAuxiliar=>cuentaAuxiliar.nombre===this.cuentaActual) !== undefined) {
                     throw new Error ('Nombre ya existente')
                 }
-            this.$store.dispatch('editarCuentaNombre', {nombreNuevo: this.cuentaActual, nombreAntiguo: this.cuentaOriginal})
+            this.$store.dispatch('editarCuentaNombre', {nombreNuevo: this.cuentaActual, nombreAntiguo: this.cuentaOriginal,})
             this.alerta = {mensaje: 'Modificado exitosamente', tipo: 'success', visible: true, color: '#64C195'}
             this.cuentaOriginal = this.cuentaActual;
-            this.$emit('actualizarCuenta', this.cuentaOriginal)
+            this.$emit('actualizarCuenta', {nombre: this.cuentaOriginal})
             } catch (error) {
                 this.cuentaActual= this.cuentaOriginal
                 this.alerta = {mensaje: error, tipo: 'error', visible: true, color: 'red'}

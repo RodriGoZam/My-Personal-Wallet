@@ -9,6 +9,7 @@
                     <v-text-field id="nombre" v-model="nombre" size="large" color="green" label="Nombre de Cuenta" prepend-icon="account_balance"></v-text-field>
                      <v-btn color="success" :disabled="!NombreEsValido" dark large @click="addCuenta(), snackbar = true">Crear Wallet</v-btn>
                 </v-flex>
+            <v-btn round color="#64C195" router to="/">Volver</v-btn>
             </v-layout>
             <v-snackbar
              v-model="snackbar"
@@ -16,7 +17,7 @@
                :top="'top'">
                 {{snackbarText}}
                 <v-btn
-                 color="green"
+                 color="#64C195"
                  flat
                  @click="snackbar = false">
                   OK 
@@ -60,10 +61,11 @@ export default {
             if( this.nombreExiste == false)
             {
                 this.$store.dispatch('addCuenta',
-                { icon: 'account_balance', nombre: this.nombre , route: '/wallet', fondos: 0}
+                { icon: 'account_balance', nombre: this.nombre , route: '/', fondos: 0}
                 );
                 this.snackbarText = 'Cuenta "' + this.nombre + '" Creado',
                 this.nombre = ''
+                this.$router.push('/')
             }
             this.nombreExiste = false
         }
@@ -74,8 +76,7 @@ export default {
 <style>
  .Header {
      height: 0in;
-     color: green
-     
+     color: #64C195;
      
  }
      

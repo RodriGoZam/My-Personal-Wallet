@@ -12,6 +12,7 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home,
+      props: {cuenta: { icon: 'account_balance', nombre: 'ahorros', fondos: 100, route: '/' }}
     },
     {
       path: '/reporte',
