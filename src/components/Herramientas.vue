@@ -14,6 +14,7 @@
                                     dark
                                     round
                                     id="botonReporte"
+                                    @click="$router.push('reporte')"
                             >
                                     Reporte
                             </v-btn>

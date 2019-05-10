@@ -73,12 +73,13 @@ export default {
                     throw new Error ('Inserte un nuevo nombre')
                 } else if (this.cuentaActual === this.cuentaOriginal) {
                     throw new Error ('No se realizo ningun cambio, pues es el mismo nombre')
-                } else if (this.otrasCuentas.find(cuentaAuxiliar=>cuentaAuxiliar.nombre===this.cuentaActual) === undefined) {
-                    
+                } else if (this.otrasCuentas.find(cuentaAuxiliar=>cuentaAuxiliar.nombre===this.cuentaActual) !== undefined) {
                     throw new Error ('Nombre ya existente')
                 }
             this.$store.dispatch('editarCuentaNombre', {nombreNuevo: this.cuentaActual, nombreAntiguo: this.cuentaOriginal})
             this.alerta = {mensaje: 'Modificado exitosamente', tipo: 'success', visible: true, color: '#64C195'}
+            this.cuentaOriginal = this.cuentaActual;
+            this.$emit('actualizarCuenta', this.cuentaOriginal)
             } catch (error) {
                 this.cuentaActual= this.cuentaOriginal
                 this.alerta = {mensaje: error, tipo: 'error', visible: true, color: 'red'}

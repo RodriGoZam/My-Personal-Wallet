@@ -1,7 +1,7 @@
 <template>
     <v-container fluid class="contenedor">
         <div>
-            <InformacionCuenta :cuentaActual="cuenta.nombre" :cuentaOriginal="cuenta.nombre" :fondos="cuenta.fondos"/>
+            <InformacionCuenta :cuentaActual="cuenta.nombre" :cuentaOriginal="cuenta.nombre" :fondos="cuenta.fondos" @actualizarCuenta="actualizarCuenta"/>
             <Lista  :items = "ingresos" titulo="Ingresos" style="heigth: 10%"/>
             <Lista :items = "egresos" titulo="Egresos" height="15%"/>
             <Herramientas :cuenta="cuenta" height="25%"/>
@@ -28,6 +28,11 @@ export default {
     egresos() {
       return this.$store.state.egresos.filter(egreso=>egreso.cuenta==this.cuenta.nombre);
     },
+  },
+  methods: {
+    actualizarCuenta (nombre) {
+      this.cuent.nombre = nombre
+    }
   }
 }
 </script>

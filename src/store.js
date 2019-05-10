@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    cuentas: [{ nombre: 'ahorros', fondos: 100 }, { nombre: 'comida', fondos: 150 }],
+    cuentas: [{ icon: 'home', nombre: 'ahorros', fondos: 100, route: '/' }, {icon: 'home', nombre: 'comida', fondos: 150, route: '/' }],
     categoriaIngresos: ['Salario', 'Transferencia', 'Otros'],
     categoriaEgresos: ['Expensas', 'Transferencia', 'Otros'],
     ingresos: [],
@@ -29,6 +29,9 @@ export default new Vuex.Store({
     },
     editarCuentaNombre (context, cuentas) {
       context.cuentas.find(cuenta => cuenta.nombre === cuentas.nombreAntiguo).nombre = cuentas.nombreNuevo;
+    },
+    addCuenta(context, newCuenta) {
+      context.cuentas.push(newCuenta);
     }
   },
   actions: {
@@ -49,6 +52,30 @@ export default new Vuex.Store({
     },
     editarCuentaNombre (context, cuentas) {
       context.commit('editarCuentaNombre', cuentas)
+    },
+    addCuenta(context, newCuenta) {
+      context.commit('addCuenta',newCuenta);
+    }
+  },
+  getters: {
+    hacerReporte (state) {
+      return state.ingresos.concat(state.egresos)
+    },
+    obtenerCategorias (state) {
+      var cat = state.categoriaIngresos.concat(state.categoriaEgresos)
+      for (var i = 0; i < cat.length; i++) {
+        for (var j = i + 1; j < cat.length; ++j) {
+          if (cat[i] === cat[j]) {
+            cat.splice(j--, 1)
+          }
+        }
+      }
+      return cat
+    },
+    obtenerFechas (state) {
+      var cat = state.ingresos.concat(state.egresos)
+      var fechas = cat.map(dato => dato.fecha)
+      return fechas
     }
   },
 })
