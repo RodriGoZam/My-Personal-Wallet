@@ -2,7 +2,7 @@
   <div id="report">
     <h2>Reporte</h2>
     <br>
-    <v-layout row wrap justify-center class="light-blue lighten-3"> 
+    <v-layout row wrap justify-center class="green lighten-2">
       <v-flex xs3>
         <v-select
           :items="categorias"
@@ -60,8 +60,8 @@
     <br>
     <v-data-table
       v-model="selected"
-      :headers="headers" 
-      :items="registro"
+      :headers="headers"
+      :items="nuevoRegistro"
       :pagination.sync="pagination"
       select-all
       class="elevation-1"
@@ -86,7 +86,7 @@
       <template slot="items" slot-scope="props">
         <tr :active="props.selected" @click="props.selected = !props.selected">
           <td>{{ props.item.cuenta }}</td>
-          <td class="text-xs-right">{{ props.item.fecha }}</td>
+          <td class="text-xs-right">{{ props.item.fecha | formatDate }}</td>
           <td class="text-xs-right">{{ props.item.categoria }}</td>
           <td class="text-xs-right">{{ props.item.monto }}</td>
         </tr>
@@ -103,8 +103,10 @@ export default {
         { text: 'Cuenta', align: 'left', sortable: false, value: 'cuenta' },
         { text: 'Fecha', align: 'left', sortable: true, value: 'fecha' },
         { text: 'Categoria', align: 'left', sortable: true, value: 'categoria' },
-        { text: 'Monto', align: 'left', sortable: false, value: 'monto' },
+        { text: 'Monto', align: 'left', sortable: false, value: 'monto' }
       ],
+      regis: [],
+      marcaFecha: [],
       show_start_date: false,
       start_date: null,
       show_end_date: false,
@@ -121,13 +123,23 @@ export default {
     }
   },
   computed: {
-    registro () {
-      return this.$store.getters.hacerReporte
-    },
     categorias () {
       var cat = this.$store.getters.obtenerCategorias
       console.log(cat)
       return cat
+    },
+    nuevoRegistro () {
+      var reg = this.$store.getters.hacerReporte
+      console.log(reg)
+      var dates = this.$store.getters.obtenerFechas
+      console.log(dates)
+      var stamps = dates.map(stamp =>
+        new Date(stamp).getTime())
+      console.log(stamps)
+      for (var i in reg) {
+        reg[i].fecha = stamps[i]
+      }
+      return reg
     }
   },
   methods: {
@@ -158,33 +170,33 @@ export default {
       return cfilter.runFilters()
     },
     filtrarCategoria (val) {
-      this.filters = this.$MultiFilters.updateFilters(this.filters, {category: val})
+      this.filters = this.$MultiFilters.updateFilters(this.filters, { category: val })
     },
     filtrarFechaInicio (val) {
       this.$refs.show_start_date.save(val)
-      const timestamp = new Date(val).getTime()
+      const timestamp = new Date(val + 'T00:00:00Z').getTime()
       console.log(timestamp)
-      this.filters = this.$MultiFilters.updateFilters(this.filters, {start_date: timestamp})
+      this.filters = this.$MultiFilters.updateFilters(this.filters, { start_date: timestamp })
     },
     filtrarFechaFin (val) {
       this.$refs.show_end_date.save(val)
-      const timestamp = new Date(val).getTime()
+      const timestamp = new Date(val + 'T00:00:00Z').getTime()
       console.log(timestamp)
-      this.filters = this.$MultiFilters.updateFilters(this.filters, {end_date: timestamp});
+      this.filters = this.$MultiFilters.updateFilters(this.filters, { end_date: timestamp })
     },
-    changeSort(column) {
+    changeSort (column) {
       if (this.pagination.sortBy === column) {
-        this.pagination.descending = !this.pagination.descending;
+        this.pagination.descending = !this.pagination.descending
       } else {
-        this.pagination.sortBy = column;
-        this.pagination.descending = false;
+        this.pagination.sortBy = column
+        this.pagination.descending = false
       }
     }
   },
   filters: {
     formatDate: function (value) {
-      if (!value) return '';
-      return new Date(value).toLocaleDateString('es-ES');
+      if (!value) return ''
+      return new Date(value).toLocaleDateString('en-US')
     }
   }
 }
