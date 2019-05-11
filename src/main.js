@@ -5,6 +5,7 @@ import router from './router'
 import store from './store'
 import MultiFiltersPluggin from './plugins/MultiFilters'
 
+Vue.config.silent = true
 Vue.config.productionTip = false
 Vue.use(MultiFiltersPluggin)
 

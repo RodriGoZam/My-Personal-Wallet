@@ -17,7 +17,7 @@ export default {
     NavDrawer
   },
   props: {
-      cuenta: { icon: 'account_balance', nombre: 'ahorros', fondos: 100, route: '/' }
+      cuenta: Object
       
   },
   methods: {

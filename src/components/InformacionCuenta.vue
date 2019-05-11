@@ -46,6 +46,12 @@
                                     </v-alert>
                                 </div>
                         </v-expand-transition>
+                        <v-btn
+                        class="boton"
+                        icon
+                        @click="borrarCuenta">
+                            <v-icon>delete</v-icon>
+                        </v-btn>
                     </v-layout>
                 </div>
             </v-flex>
@@ -69,7 +75,9 @@ export default {
     methods: {
         editarNombre () {
             try{
-                if (this.cuentaActual === '') {
+                if (this.cuentaOriginal === 'Global') {
+                    throw new Error('No se puede cambiar el nombre de la cuenta global')
+                } else if (this.cuentaActual === '') {
                     throw new Error ('Inserte un nuevo nombre')
                 } else if (this.cuentaActual === this.cuentaOriginal) {
                     throw new Error ('No se realizo ningun cambio, pues es el mismo nombre')
@@ -85,6 +93,22 @@ export default {
                 this.alerta = {mensaje: error, tipo: 'error', visible: true, color: 'red'}
             } finally {
             this.edicion = false
+            }
+        },
+        borrarCuenta () {
+            try{
+                if (this.cuentaOriginal === 'Global') {
+                    throw new Error('No se puede borrar la cuenta global')
+                } else if (this.$store.state.ingresos.find(ingreso=>ingreso.cuenta===this.cuentaOriginal) !== undefined) { 
+                    throw new Error('No se puede borrar una cuenta que tiene ingresos/egresos')
+                }
+                this.$store.dispatch('borrarCuenta', {nombre: this.cuentaOriginal})
+                this.$emit('actualizarCuenta', {nombre: this.cuentaOriginal})
+                this.alerta = {mensaje: 'Eliminado exitosamente', tipo: 'success', visible: true, color: '#64C195'}
+            } catch (error) {
+                this.alerta = {mensaje: error, tipo: 'error', visible: true, color: 'red'}
+            } finally {
+
             }
         }
     },

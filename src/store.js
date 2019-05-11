@@ -5,12 +5,11 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    cuentas: [{ icon: 'account_balance', nombre: 'ahorros', fondos: 100, route: '/' }, {icon: 'account_balance', nombre: 'comida', fondos: 150, route: '/' }],
+    cuentas: [{ icon: 'account_balance', nombre: 'Global', fondos: 0, route: '/' }, {icon: 'account_balance', nombre: 'comida', fondos: 150, route: '/' }],
     categoriaIngresos: ['Salario', 'Transferencia', 'Otros'],
     categoriaEgresos: ['Expensas', 'Transferencia', 'Otros'],
     ingresos: [],
-    egresos: [],
-    cuentaActual: { icon: 'account_balance', nombre: 'ahorros', fondos: 100, route: '/' }
+    egresos: []
   },
   mutations: {
     agregarIngreso (context, nuevoIngreso) {
@@ -30,10 +29,14 @@ export default new Vuex.Store({
     },
     editarCuentaNombre (context, cuentas) {
       context.cuentas.find(cuenta => cuenta.nombre === cuentas.nombreAntiguo).nombre = cuentas.nombreNuevo;
-      context.cuentaActual = context.cuentas.find(cuenta => cuenta.nombre === cuentas.nombreNuevo)
+      context.ingresos.forEach(function (ingreso) { if ( ingreso.cuenta===cuentas.nombreAntiguo ) { ingreso.cuenta=cuentas.nombreNuevo } });
+      context.egresos.forEach(function (egreso) { if ( egreso.cuenta===cuentas.nombreAntiguo ) { egreso.cuenta=cuentas.nombreNuevo } })
     },
     addCuenta(context, newCuenta) {
       context.cuentas.push(newCuenta);
+    },
+    borrarCuenta (context, cuentaData) {
+      context.cuentas.forEach(function (cuenta, indice) {if (cuenta.nombre===cuentaData.nombre) {context.cuentas.splice(indice,1)} });
     }
   },
   actions: {
@@ -57,6 +60,9 @@ export default new Vuex.Store({
     },
     addCuenta(context, newCuenta) {
       context.commit('addCuenta',newCuenta);
+    },
+    borrarCuenta (context, cuentaData) {
+      context.commit('borrarCuenta',cuentaData)
     }
   },
   getters: {

@@ -31,7 +31,11 @@ export default {
   },
   methods: {
     actualizarCuenta (cuenta) {
-      this.cuenta.nombre = cuenta.nombre
+      if (this.$store.state.cuentas.find(cuentaAuxiliar=>cuentaAuxiliar.nombre===cuenta.nombre) !== undefined) {
+        this.cuenta = this.$store.state.cuentas.find(cuentaAuxiliar=>cuentaAuxiliar.nombre===cuenta.nombre)
+      } else {
+        this.cuenta = this.$store.state.cuentas[0]
+      }
     }
   }
 }
