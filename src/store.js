@@ -8,12 +8,12 @@ export default new Vuex.Store({
     cuentas: [ { nombre: 'ahorros', fondos: 100 } ],
     categoriaIngresos: [ 'Salario', 'Transferencia', 'Otros' ],
     categoriaEgresos: [ 'Expensas', 'Transferencia', 'Otros' ],
-    ingresos: [ { cuenta: 'ahorros', fecha: '2019-05-01', monto: 100, categoria: 'Salario' },
-      { cuenta: 'ahorros', fecha: '2019-03-25', monto: 300, categoria: 'Otros' },
-      { cuenta: 'ahorros', fecha: '2019-04-23', monto: 400, categoria: 'Otros' } ],
-    egresos: [ { cuenta: 'ahorros', fecha: '2019-05-03', monto: 100, categoria: 'Expensas' },
-      { cuenta: 'ahorros', fecha: '2019-01-30', monto: 1000, categoria: 'Expensas' },
-      { cuenta: 'ahorros', fecha: '2019-04-21', monto: 550, categoria: 'Expensas' } ]
+    ingresos: [ { id: 'ingresos', fecha: '2019-05-01', monto: 100, categoria: 'Salario' },
+      { id: 'ingresos', fecha: '2019-03-25', monto: 300, categoria: 'Otros' },
+      { id: 'ingresos', fecha: '2019-04-23', monto: 400, categoria: 'Otros' } ],
+    egresos: [ { id: 'egresos', fecha: '2019-05-03', monto: 100, categoria: 'Expensas' },
+      { id: 'egresos', fecha: '2019-01-30', monto: 1000, categoria: 'Expensas' },
+      { id: 'egresos', fecha: '2019-04-21', monto: 550, categoria: 'Expensas' } ]
   },
   mutations: {
 
