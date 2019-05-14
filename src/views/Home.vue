@@ -17,11 +17,10 @@ export default {
     NavDrawer
   },
   props: {
-      cuenta: Object
-      
+    cuenta: Object
   },
   methods: {
-    actualizarCuenta (cuenta) {
+    actualizarCuenta(cuenta) {
       this.cuenta = cuenta
     }
   }

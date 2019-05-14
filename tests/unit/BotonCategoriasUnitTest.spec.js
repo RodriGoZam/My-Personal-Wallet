@@ -13,18 +13,18 @@ describe('Unit tests relacionados a agregar una categoria', () => {
   const nombresPruebaIngreso = ['Salario', 'Inversiones']
   const nombresPruebaEgreso = ['Expensas', 'Instituto']
 
-  beforeEach(function() {
+  beforeEach(function () {
     store = TestUtil.getDefaultStore()
     wrapper = shallowMount(BotonCategorias,
-        {
-          store, propsData: {categoriaIngresos: store.state.categoriaIngresos, categoriaEgresos: store.state.categoriaEgresos}
-        })
+      {
+        store, propsData: { categoriaIngresos: store.state.categoriaIngresos, categoriaEgresos: store.state.categoriaEgresos }
+      })
   })
   it('Verificar que se inicie con 3  categorias, nunmero establecido en BRD', () => {
     assert.equal(3, wrapper.vm.categoriaEgresos.length, 'Numero incorrecto de categorias de egreso inicial: ' + wrapper.vm.categoriaEgresos.length)
     assert.equal(3, wrapper.vm.categoriaIngresos.length, 'Numero incorrecto de categorias de ingreso inicial: ' + wrapper.vm.categoriaIngresos.length)
   })
-  it('Las nuevas categorias de guarden en la store' , () => {
+  it('Las nuevas categorias de guarden en la store', () => {
     wrapper.vm.tipo = 'Ingreso'
     wrapper.vm.nombre = nombresPruebaIngreso[1]
     wrapper.vm.agregar()
@@ -33,7 +33,6 @@ describe('Unit tests relacionados a agregar una categoria', () => {
     wrapper.vm.nombre = nombresPruebaEgreso[1]
     wrapper.vm.agregar()
     assert.equal(nombresPruebaEgreso[1], store.state.categoriaEgresos[0], 'No se agrega la categoria de egreso')
-    
   })
   it('No se pueden agregar categorias existentes', () => {
     wrapper.vm.tipo = 'Ingreso'

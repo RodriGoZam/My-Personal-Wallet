@@ -11,24 +11,24 @@ describe('Unit tests relacionados a hacer una transferencia', () => {
   let store
   const assert = require('chai').assert
   const datosTransferencia = [
-    { cuenta: 'comida', fecha: '2019-05-06', monto: 20, categoria: 'Transferencia',
+    { cuenta: 'comida', fecha: '2019-05-06', monto: 20, categoria: 'Transferencia'
     }]
-  const cuenta = {nombre: 'ahorros', fondos: '100'}
+  const cuenta = { nombre: 'ahorros', fondos: '100' }
 
-  beforeEach(function() {
+  beforeEach(function () {
     store = TestUtil.getDefaultStore()
     wrapper = shallowMount(BotonTransferencia,
-        {
-          store, propsData: {cuenta: cuenta}
-        })
+      {
+        store, propsData: { cuenta: cuenta }
+      })
   })
   it('Agrega la transferencia al inicio del array egresos de la store', () => {
     wrapper.vm.monto = datosTransferencia[0].monto
     wrapper.vm.fecha = datosTransferencia[0].fecha
     wrapper.vm.cuentaDestino = datosTransferencia[0].cuenta
-    
+
     wrapper.vm.transferir()
-    
+
     assert.equal(cuenta.nombre, store.state.egresos[0].cuenta, 'no se agrega la cuenta de origen correctamente')
     assert.equal(datosTransferencia[0].fecha, store.state.egresos[0].fecha, 'no se agrega la fecha correctamente')
     assert.equal(datosTransferencia[0].monto, store.state.egresos[0].monto, 'no se agrega el monto correctamente')

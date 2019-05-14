@@ -11,12 +11,12 @@
         ></v-select>
       </v-flex>
       <v-flex xs3>
-        <v-menu
-          ref="show_start_date"
+         <v-menu
+          ref="mostrarFechaInicio"
           :close-on-content-click="false"
-          v-model="show_start_date"
+          v-model="mostrarFechaInicio"
           :nudge-right="40"
-          :return-value.sync="start_date"
+          :return-value.sync="fechaInicio"
           lazy
           transition="scale-transition"
           offset-y
@@ -25,21 +25,21 @@
         >
           <v-text-field
             slot="activator"
-            v-model="start_date"
-            label="From"
+            v-model="fechaInicio"
+            label="Desde"
             prepend-icon="event"
             readonly
           ></v-text-field>
-          <v-date-picker v-model="start_date" @input="filtrarFechaInicio"></v-date-picker>
+          <v-date-picker v-model="fechaInicio" @input="filtrarFechaInicio"></v-date-picker>
         </v-menu>
       </v-flex>
       <v-flex xs3>
         <v-menu
-          ref="show_end_date"
+          ref="mostrarFechaFinal"
           :close-on-content-click="false"
-          v-model="show_end_date"
+          v-model="mostrarFechaFinal"
           :nudge-right="40"
-          :return-value.sync="end_date"
+          :return-value.sync="fechaFinal"
           lazy
           transition="scale-transition"
           offset-y
@@ -48,20 +48,20 @@
           >
           <v-text-field
             slot="activator"
-            v-model="end_date"
-            label="To"
+            v-model="fechaFinal"
+            label="Hasta"
             prepend-icon="event"
             readonly
           ></v-text-field>
-          <v-date-picker v-model="end_date" @input="filtrarFechaFin"></v-date-picker>
+          <v-date-picker v-model="fechaFinal" @input="filtrarFechaFin"></v-date-picker>
         </v-menu>
       </v-flex>
     </v-layout>
     <br>
     <v-data-table
       v-model="selected"
-      :headers="headers" 
-      :items="registro"
+      :headers="headers"
+      :items="nuevoReporte"
       :pagination.sync="pagination"
       select-all
       class="elevation-1"
@@ -75,7 +75,9 @@
           <th
             v-for="header in props.headers"
             :key="header.text"
-            :class="['column sortable', pagination.descending ? 'desc' : 'asc', header.value === pagination.sortBy ? 'active' : '']"
+            :class="['column sortable',
+              pagination.descending ? 'desc' : 'asc',
+              header.value === pagination.sortBy ? 'active' : '']"
             @click="changeSort(header.value)"
             >
             <v-icon small>arrow_upward</v-icon>
@@ -85,8 +87,7 @@
       </template>
       <template slot="items" slot-scope="props">
         <tr :active="props.selected" @click="props.selected = !props.selected">
-          <td>{{ props.item.cuenta }}</td>
-          <td class="text-xs-right">{{ props.item.fecha }}</td>
+          <td class="text-xs-right">{{ props.item.fecha | formatDate }}</td>
           <td class="text-xs-right">{{ props.item.categoria }}</td>
           <td class="text-xs-right">{{ props.item.monto }}</td>
         </tr>
@@ -97,21 +98,20 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       headers: [
-        { text: 'Cuenta', align: 'left', sortable: false, value: 'cuenta' },
         { text: 'Fecha', align: 'left', sortable: true, value: 'fecha' },
         { text: 'Categoria', align: 'left', sortable: true, value: 'categoria' },
-        { text: 'Monto', align: 'left', sortable: false, value: 'monto' },
+        { text: 'Monto', align: 'left', sortable: false, value: 'monto' }
       ],
-      show_start_date: false,
-      start_date: null,
-      show_end_date: false,
-      end_date: null,
+      mostrarFechaInicio: false,
+      fechaInicio: null,
+      mostrarFechaFinal: false,
+      fechaFinal: null,
       selected: [],
       pagination: {
-        sortBy: 'cuenta'
+        sortBy: 'categoria'
       },
       filters: {
         category: '',
@@ -120,71 +120,83 @@ export default {
       }
     }
   },
+  props: {
+    cuenta: Object
+  },
   computed: {
-    registro () {
-      return this.$store.getters.hacerReporte
-    },
-    categorias () {
-      var cat = this.$store.getters.obtenerCategorias
+    categorias() {
+      const cat = this.$store.getters.obtenerCategorias
       console.log(cat)
       return cat
+    },
+    nuevoReporte() {
+      const reg = this.$store.getters.hacerReporte
+      const dates = this.$store.getters.obtenerFechas
+      const stamps = dates.map((stamp) =>
+        new Date(stamp).getTime())
+      console.log(stamps)
+      for (const i in reg) {
+        reg[i].fecha = stamps[i] + 14400000
+      }
+      console.log(reg)
+      return reg
     }
   },
   methods: {
-    customFilter (items, filters, filter, headers) {
+    customFilter(items, filters, filter, headers) {
       const cfilter = new this.$MultiFilters(items, filters, filter, headers)
 
-      cfilter.registerFilter('category', function (category, items) {
+      cfilter.registerFilter('category', function(category, items) {
         if (category.trim() === '') return items
 
-        return items.filter(item => {
+        return items.filter((item) => {
           return item.categoria === category
         }, category)
       })
-      cfilter.registerFilter('start_date', function (start_date, items) {
-        if (start_date === null) return items
+      cfilter.registerFilter('start_date', function(fechaInicio, items) {
+        if (fechaInicio === null) return items
 
-        return items.filter(item => {
-          return item.fecha >= start_date
-        }, start_date)
+        return items.filter((item) => {
+          return item.fecha >= fechaInicio
+        }, fechaInicio)
       })
-      cfilter.registerFilter('end_date', function (end_date, items) {
-        if (end_date === null) return items
+      cfilter.registerFilter('end_date', function(fechaFinal, items) {
+        if (fechaFinal === null) return items
 
-        return items.filter(item => {
-          return item.fecha <= end_date
-        }, end_date)
+        return items.filter((item) => {
+          return item.fecha <= fechaFinal
+        }, fechaFinal)
       })
       return cfilter.runFilters()
     },
-    filtrarCategoria (val) {
-      this.filters = this.$MultiFilters.updateFilters(this.filters, {category: val})
+    filtrarCategoria(val) {
+      this.filters = this.$MultiFilters.updateFilters(this.filters, { category: val })
     },
-    filtrarFechaInicio (val) {
-      this.$refs.show_start_date.save(val)
-      const timestamp = new Date(val).getTime()
+    filtrarFechaInicio(val) {
+      this.$refs.mostrarFechaInicio.save(val)
+      const timestamp = new Date(val + 'T04:00:00Z').getTime()
       console.log(timestamp)
-      this.filters = this.$MultiFilters.updateFilters(this.filters, {start_date: timestamp})
+      this.filters = this.$MultiFilters.updateFilters(this.filters, { start_date: timestamp })
     },
-    filtrarFechaFin (val) {
-      this.$refs.show_end_date.save(val)
-      const timestamp = new Date(val).getTime()
+    filtrarFechaFin(val) {
+      this.$refs.mostrarFechaFinal.save(val)
+      const timestamp = new Date(val + 'T04:00:00Z').getTime()
       console.log(timestamp)
-      this.filters = this.$MultiFilters.updateFilters(this.filters, {end_date: timestamp});
+      this.filters = this.$MultiFilters.updateFilters(this.filters, { end_date: timestamp })
     },
     changeSort(column) {
       if (this.pagination.sortBy === column) {
-        this.pagination.descending = !this.pagination.descending;
+        this.pagination.descending = !this.pagination.descending
       } else {
-        this.pagination.sortBy = column;
-        this.pagination.descending = false;
+        this.pagination.sortBy = column
+        this.pagination.descending = false
       }
     }
   },
   filters: {
-    formatDate: function (value) {
-      if (!value) return '';
-      return new Date(value).toLocaleDateString('es-ES');
+    formatDate(value) {
+      if (!value) return ''
+      return new Date(value).toLocaleDateString('en-US')
     }
   }
 }

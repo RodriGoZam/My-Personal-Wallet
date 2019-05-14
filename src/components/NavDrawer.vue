@@ -36,37 +36,34 @@
 </template>
 
 <script>
-  export default {
-    data: function() {
-      return{
-         drawer: false,
-      }
-    },
-    watch: {
+export default {
+  data: function() {
+    return {
+      drawer: false,
+    }
+  },
+  watch: {
     // call again the method if the route changes
     '$route': 'fetchData'
-    },
-    methods: {
-      openDrawer() {
-        if(this.drawer == false)
-        {
-          this.drawer = true;
-        }
-        else
-        {
-          this.drawer = false;
-        }
-      },
-      actualizarHomeData (cuenta) {
+  },
+  methods: {
+    openDrawer() {
+      if (this.drawer == false) {
+        this.drawer = true
+      } else {
         this.drawer = false
-        this.$emit('actualizarCuenta', cuenta)
       }
     },
-    computed: {
-      cuentas() {
-        return this.$store.state.cuentas;
-      }
+    actualizarHomeData(cuenta) {
+      this.drawer = false
+      this.$emit('actualizarCuenta', cuenta)
     }
-    
+  },
+  computed: {
+    cuentas() {
+      return this.$store.state.cuentas
+    }
   }
+
+}
 </script>
