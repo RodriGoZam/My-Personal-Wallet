@@ -1,4 +1,5 @@
 /* eslint-disable require-jsdoc */
+
 class MultiFilters {
   constructor(items, filters, filter, headers) {
     this.items = items

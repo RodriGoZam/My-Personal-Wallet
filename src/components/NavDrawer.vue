@@ -48,7 +48,7 @@ export default {
   },
   methods: {
     openDrawer() {
-      if (this.drawer == false) {
+      if (this.drawer === false) {
         this.drawer = true
       } else {
         this.drawer = false

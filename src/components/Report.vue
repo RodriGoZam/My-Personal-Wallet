@@ -126,7 +126,6 @@ export default {
   computed: {
     categorias() {
       const cat = this.$store.getters.obtenerCategorias
-      console.log(cat)
       return cat
     },
     nuevoReporte() {
@@ -134,7 +133,6 @@ export default {
       const dates = this.$store.getters.obtenerFechas
       const stamps = dates.map((stamp) =>
         new Date(stamp).getTime())
-      console.log(stamps)
       for (const i in reg) {
         reg[i].fecha = stamps[i] + 14400000
       }

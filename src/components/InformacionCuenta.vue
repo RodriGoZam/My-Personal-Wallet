@@ -83,7 +83,7 @@ export default {
         } else if (this.cuentaActual === this.cuentaOriginal) {
           throw new Error('No se realizo ningun cambio, pues es el mismo nombre')
         } else if (this.otrasCuentas.find((cuentaAuxiliar) =>
-        cuentaAuxiliar.nombre === this.cuentaActual) !== undefined) {
+          cuentaAuxiliar.nombre === this.cuentaActual) !== undefined) {
           throw new Error('Nombre ya existente')
         }
         this.$store.dispatch('editarCuentaNombre', {
@@ -111,14 +111,13 @@ export default {
       } catch (error) {
         this.alerta = { mensaje: error, tipo: 'error', visible: true, color: 'red' }
       } finally {
-        
       }
     }
   },
   computed: {
     otrasCuentas() {
       return this.$store.state.cuentas.filter((cuenta) =>
-      cuenta.nombre !== this.cuentaActual.nombre).map(function(i) {
+        cuenta.nombre !== this.cuentaActual.nombre).map(function(i) {
         return i.nombre
       })
     }
