@@ -15,7 +15,7 @@ module.exports = {
       'semi': ["error", "never"],
       'max-len': ["error", { "code": 120 }],
       'guard-for-in': "off",
-      'linebreak-style': [0]
+      'linebreak-style': "off"
     },
     parserOptions: {
       parser: 'babel-eslint'
