@@ -24,6 +24,11 @@ npm run test
 ```
 npm run lint
 ```
+comas en lineas (comma dangle) deshabilitado ya que no afectan en el proyecto
+punto y coma al final de linea (semi) deshabilitado ya que no influye en la funcionalidad
+se permiten una cantidad maxima de 20 caracteres en linea (max-len) para evitar lineas considerablemente largas
+(guard-for-in) deshabilitado para evitar la necesidad de colocar 'if' dentro de un 'for'
+(linebreak-style) deshabilitado para evitar necesidad de esperar que un componente tenga reglas de espaciados LF o CRLF
 
 ### Run your end-to-end tests
 ```
